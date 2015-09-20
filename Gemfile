@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'validates_email_format_of'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
