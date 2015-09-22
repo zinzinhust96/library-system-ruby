@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  description: MyText
-  is_deleted: false
   isbn: MyString
-  is_requested: false
+  title: MyString
+  author: MyString
 
 two:
-  description: MyText
-  is_deleted: false
   isbn: MyString
-  is_requested: false
+  title: MyString
+  author: MyString

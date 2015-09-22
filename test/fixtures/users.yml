@@ -2,18 +2,14 @@
 
 one:
   name: MyString
-  email_id: MyString
+  email: MyString
   password: MyString
-  phone: MyString
-  address: MyText
-  is_admin: false
   is_deleted: false
+  is_admin: false
 
 two:
   name: MyString
-  email_id: MyString
+  email: MyString
   password: MyString
-  phone: MyString
-  address: MyText
-  is_admin: false
   is_deleted: false
+  is_admin: false
