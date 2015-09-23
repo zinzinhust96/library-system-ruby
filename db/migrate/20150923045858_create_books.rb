@@ -1,10 +1,12 @@
 class CreateBooks < ActiveRecord::Migration
   def change
     create_table :books do |t|
-      t.text :description
-      t.boolean :is_deleted
+      t.string :title
+      t.string :description
+      t.string :author
       t.string :isbn
-      t.boolean :is_requested
+      t.boolean :is_borrowed
+      t.boolean :is_deleted
 
       t.timestamps null: false
     end
