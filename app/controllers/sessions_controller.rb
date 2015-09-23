@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       redirect_to "/users"
     else 
-      flash[:danger] = "Invalid email id or password. Please try again."
+      flash.now[:danger] = "Invalid email id or password. Please try again."
       render 'new'
     end
   end
