@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'homes/new'
+  get 'homes/show' => 'homes#show', as: :home
+
   root :to => 'sessions#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

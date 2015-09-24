@@ -1,0 +1,8 @@
+<% if @current_user.is_admin %>
+<div class="btn-group">
+    Manage Users <%link_to 'Manage Users', users_path, method: :get %>
+  <ul class="dropdown-menu">
+    ...
+  </ul>
+</div>
+<% end -%>

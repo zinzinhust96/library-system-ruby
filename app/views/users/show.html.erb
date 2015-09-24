@@ -24,16 +24,5 @@
   <strong>Phone:</strong>
   <%= @user.phone %>
 </p>
-
-<p>
-  <strong>Is admin:</strong>
-  <%= @user.is_admin %>
-</p>
-
-<p>
-  <strong>Is deleted:</strong>
-  <%= @user.is_deleted %>
-</p>
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
