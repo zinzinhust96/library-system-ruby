@@ -1,8 +1,12 @@
-<% if @current_user.is_admin %>
-<div class="btn-group">
-    Manage Users <%link_to 'Manage Users', users_path, method: :get %>
-  <ul class="dropdown-menu">
-    ...
-  </ul>
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+	<% if @current_user.is_admin %>
+  <div class="btn-group" role="group">
+    <%= link_to "Manage Users", users_path, class: "btn btn-danger", style: "color: #fff"%>
+  </div>
+  <% end %>
+  <div class="btn-group" role="group">
+        <%= link_to "Search Books", searches_path, class: "btn btn-success" , style: "color: #fff"%>  </div>
+  <div class="btn-group" role="group">
+    <%= link_to "My Books", users_path, class: "btn btn-warning", style: "color: #fff"%>  </div>
+  </div>
 </div>
-<% end -%>
