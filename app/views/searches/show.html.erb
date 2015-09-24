@@ -1,0 +1,43 @@
+<h1>Search Results</h1>
+
+
+
+<%= link_to "Back", new_search_path %>
+
+<% if @search.search_books.empty? %>
+    <p>No records found</p>
+<%else%>
+    <table>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Author</th>
+        <th>Isbn</th>
+        <th>Is borrowed</th>
+        <th>Is deleted</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+    <% @search.search_books.each do |book| %>
+
+        <tbody>
+
+            <tr>
+              <td><%= book.title %></td>
+              <td><%= book.description %></td>
+              <td><%= book.author %></td>
+              <td><%= book.isbn %></td>
+              <td><%= book.is_borrowed %></td>
+              <td><%= book.is_deleted %></td>
+              <td><%= link_to 'Show', book %></td>
+              <td><%= link_to 'Edit', edit_book_path(book) %></td>
+              <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+<% end %>
+
+

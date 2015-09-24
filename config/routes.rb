@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
+
   root :to => 'sessions#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
+  resources :searches
   resources :books
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  # root 'application#application'
+
+  match ':controller(/:action(/:id))', :via=> :get
+
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
