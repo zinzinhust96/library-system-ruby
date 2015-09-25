@@ -22,14 +22,18 @@ class BooksController < ApplicationController
     Rails.logger = Logger.new(STDOUT)
     logger.debug "Book id passed is #{params[:id]}"
     logger.debug "Book returned by search #{@book.id}"
+    invalid_return = false
+    if @book.is_borrowed && (@book.user_id != @current_user.id)
+      invalid_return = true
+    end
     @book.is_borrowed=false
     @book.user_id = nil 
-    if @book.save!
+    if !invalid_return && @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
     else
-      render :show
-      # render json: @book.errors, status: :unprocessable_entity
+      flash.now[:danger] = "Invalid Action!"
+      render :show     #render json: @book.errors, status: :unprocessable_entity
     end
   end
 
