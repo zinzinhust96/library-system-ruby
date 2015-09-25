@@ -1,15 +1,19 @@
-<div class="btn-group" role="group" aria-label="...">
-	<% if @current_user.is_admin %>
-  <div class="btn-group float_btn" role="group">
-    <%= link_to "Manage Users", users_path, class: "btn btn-danger", style: "color: #fff"%>
-  </div>
-  <div class="btn-group float_btn" role="group">
-    <%= link_to "Manage Books", books_path, class: "btn btn-info", style: "color: #fff"%>
-  </div>
-  <% end %>
-  <div class="btn-group float_btn" role="group">
-        <%= link_to "Search Books", new_search_path, class: "btn btn-success" , style: "color: #fff"%>  </div>
-  <div class="btn-group float_btn" role="group">
-    <%= link_to "My Books", users_path, class: "btn btn-warning", style: "color: #fff"%>  </div>
-  </div>
+
+<% if @current_user.is_admin %>
+<div class="btn-group float_btn" role="group">
+	<%= link_to "Manage Users", users_path, class: "btn btn-xlg btn-danger", style: "color: #fff"%>
+</div>
+<div class="btn-group float_btn" role="group">
+	<%= link_to "Manage Books", books_path, class: "btn btn-xlg btn-info", style: "color: #fff"%>
+</div>
+<% end %>
+<div class="btn-group float_btn" role="group">
+	<%= link_to "Search Books", new_search_path, class: "btn btn-xlg btn-success" , style: "color: #fff"%> 
+</div>
+<div class="btn-group float_btn" role="group">
+	<%= link_to "All Books", books_path, class: "btn btn-xlg btn-primary", style: "color: #fff"%>
+</div>
+
+<div class="btn-group float_btn" role="group">
+	<%= link_to "My Books", users_path, class: "btn btn-xlg btn-warning", style: "color: #fff"%>
 </div>
