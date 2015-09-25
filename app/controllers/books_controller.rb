@@ -68,6 +68,7 @@ end
 
   # GET /books/1/edit
   def edit
+    @book = Book.find(params[:id])
   end
 
   # POST /books
@@ -92,6 +93,7 @@ end
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    @book = Book.find(params[:id])
     respond_to do |format|
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
