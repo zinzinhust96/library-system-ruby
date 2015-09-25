@@ -5,4 +5,5 @@ class Book < ActiveRecord::Base
             :presence => true
   validates :description,
             :presence => true
+
 end

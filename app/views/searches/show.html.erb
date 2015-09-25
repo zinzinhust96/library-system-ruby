@@ -1,7 +1,5 @@
 <h1>Search Results</h1>
 
-
-
 <%= link_to "Back", new_search_path %>
 
 <% if @search.search_books.empty? %>
@@ -24,6 +22,7 @@
         <tbody>
 
             <tr>
+              <td>ID:<%= book.id %></td>
               <td><%= book.title %></td>
               <td><%= book.description %></td>
               <td><%= book.author %></td>
@@ -33,7 +32,12 @@
               <td><%= link_to 'Show', book %></td>
               <td><%= link_to 'Edit', edit_book_path(book) %></td>
               <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% if book.is_borrowed %>
+                  <td><%= link_to('Request')%></td>
+              <% else %>
 
+                  <td><%=link_to 'Borrow', borrow_book_path(:id => book.id)%></td>
+              <%end%>
             </tr>
         <% end %>
         </tbody>

@@ -1,5 +1,20 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+
+  #User Defined
+  def borrow
+    @book=Book.find(params[:id])
+    Rails.logger = Logger.new(STDOUT)
+    logger.debug "Book id passed is #{params[:id]}"
+    logger.debug "Book returned by search #{@book.id}"
+    @book.is_borrowed=true
+    if @book.save!
+      # redirect_to @book, notice: 'Book was successfully borrowed.'
+      render :show, status: :ok, location: @book
+    else
+      render :show
+      # render json: @book.errors, status: :unprocessable_entity
+    end
+  end
 
   # GET /books
   # GET /books.json
@@ -51,6 +66,9 @@ class BooksController < ApplicationController
     end
   end
 
+
+
+
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
@@ -71,4 +89,7 @@ class BooksController < ApplicationController
     def book_params
       params.require(:book).permit(:title, :description, :author, :isbn, :is_borrowed, :is_deleted)
     end
+
+
+
 end

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
+  # post 'books/borrow[:book_id]'   =>  'searches#borrow'
   resources :searches
   resources :books
   resources :users
