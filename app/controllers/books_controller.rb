@@ -7,6 +7,7 @@ class BooksController < ApplicationController
     logger.debug "Book id passed is #{params[:id]}"
     logger.debug "Book returned by search #{@book.id}"
     @book.is_borrowed=true
+    @book.user_id = session[:user_id]
     if @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
@@ -22,6 +23,7 @@ class BooksController < ApplicationController
     logger.debug "Book id passed is #{params[:id]}"
     logger.debug "Book returned by search #{@book.id}"
     @book.is_borrowed=false
+    @book.user_id = nil 
     if @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
@@ -31,20 +33,17 @@ class BooksController < ApplicationController
     end
   end
 
-  #def request
-   # @book=Book.find(params[:id])
-   # Rails.logger = Logger.new(STDOUT)
-    #logger.debug "Book id passed is #{params[:id]}"
-    #logger.debug "Book returned by search #{@book.id}"
-    #@book.is_requested=true
-    #if @book.save!
-      # redirect_to @book, notice: 'Book was successfully borrowed.'
-    #  render :show, status: :ok, location: @book
-    #else
-     # render :show
-      # render json: @book.errors, status: :unprocessable_entity
-    #end
-  #end
+  def request_book
+    @book=Book.find(params[:id])
+    @book.is_requested=true
+    @book.user_id=session[:user_id]
+    if @book.save!
+     render :show, status: :ok, location: @book
+   else
+    render :show
+    render json: @book.errors, status: :unprocessable_entity
+  end
+end
 
   # GET /books
   # GET /books.json
@@ -76,7 +75,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-            logger.debug "Book saved with id #{@book.id}"
+        logger.debug "Book saved with id #{@book.id}"
         format.html { redirect_to @book, notice: 'Book was successfully added.' }
         format.json { render :show, status: :created, location: @book }
       else
@@ -124,7 +123,7 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
     end
 
-private
+    private
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:title, :description, :author, :isbn, :is_borrowed, :is_deleted)
@@ -132,4 +131,4 @@ private
 
 
 
-end
+  end
