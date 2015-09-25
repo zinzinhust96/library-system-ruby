@@ -16,6 +16,36 @@ class BooksController < ApplicationController
     end
   end
 
+  def return
+    @book=Book.find(params[:id])
+    Rails.logger = Logger.new(STDOUT)
+    logger.debug "Book id passed is #{params[:id]}"
+    logger.debug "Book returned by search #{@book.id}"
+    @book.is_borrowed=false
+    if @book.save!
+      # redirect_to @book, notice: 'Book was successfully borrowed.'
+      render :show, status: :ok, location: @book
+    else
+      render :show
+      # render json: @book.errors, status: :unprocessable_entity
+    end
+  end
+
+  #def request
+   # @book=Book.find(params[:id])
+   # Rails.logger = Logger.new(STDOUT)
+    #logger.debug "Book id passed is #{params[:id]}"
+    #logger.debug "Book returned by search #{@book.id}"
+    #@book.is_requested=true
+    #if @book.save!
+      # redirect_to @book, notice: 'Book was successfully borrowed.'
+    #  render :show, status: :ok, location: @book
+    #else
+     # render :show
+      # render json: @book.errors, status: :unprocessable_entity
+    #end
+  #end
+
   # GET /books
   # GET /books.json
   def index
@@ -25,6 +55,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @book = Book.find(params[:id])
   end
 
   # GET /books/new
@@ -40,10 +71,13 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
+    Rails.logger = Logger.new(STDOUT)
+    logger.debug "params passed is #{book_params}"
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+            logger.debug "Book saved with id #{@book.id}"
+        format.html { redirect_to @book, notice: 'Book was successfully added.' }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new }
@@ -72,19 +106,25 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
-    @book.destroy
+    @book = Book.find(params[:id])
     respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
+      if @book.present?
+        @book.destroy
+        format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
     end
 
+private
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:title, :description, :author, :isbn, :is_borrowed, :is_deleted)

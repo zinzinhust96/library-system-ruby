@@ -30,5 +30,7 @@
   <%= @book.is_deleted %>
 </p>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+<%if @current_user.is_admin %>
+<%= link_to 'Edit', edit_book_path(@book), :class => "btn btn-danger", :style => "color: #ffffff" %> | 
+<%end%>
+<%= link_to 'Back', books_path, :class => "btn btn-warning", :style => "color: #ffffff" %>
