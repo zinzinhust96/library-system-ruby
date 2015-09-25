@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :book_histories
   get 'homes/new'
   get 'homes/show' => 'homes#show', as: :home
 

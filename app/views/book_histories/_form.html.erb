@@ -1,0 +1,33 @@
+<%= form_for(@book_history) do |f| %>
+  <% if @book_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book_history.errors.count, "error") %> prohibited this book_history from being saved:</h2>
+
+      <ul>
+      <% @book_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :book_id %><br>
+    <%= f.number_field :book_id %>
+  </div>
+  <div class="field">
+    <%= f.label :chk_out_dt %><br>
+    <%= f.datetime_select :chk_out_dt %>
+  </div>
+  <div class="field">
+    <%= f.label :chk_in_date %><br>
+    <%= f.datetime_select :chk_in_date %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
