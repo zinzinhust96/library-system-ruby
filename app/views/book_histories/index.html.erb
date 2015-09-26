@@ -1,7 +1,15 @@
 <p id="notice"><%= notice %></p>
 <% if((@user_id.to_s == @current_user.id.to_s) || @current_user.is_admin) %>
 
-<h1>Your checkout history</h1>
+    <%if !@data.split("&")[1].split("=")[1].nil?       #user_id is not nil%>
+        <%if @data.split("&")[1].split("=")[1].to_i == @current_user.id%>
+            <h1>Your checkout history</h1>
+        <%else %>
+        <h1><%=User.find(@data.split("&")[1].split("=")[1].to_i).name%>'s checkout history</h1>
+        <%end%>
+        <%else%>
+        <h1>Check out history of <%=Book.find(@data.split("&")[0].split("=")[1].to_i).title%></h1>
+        <%end%>
 
 <table class='table'>
   <thead>
@@ -16,7 +24,10 @@
   <tbody>
     <% @book_histories.each do |book_history| %>
       <% @book = Book.find(book_history.book_id) %>
-      <% if book_history.user_id.to_s == @user_id %>
+      <% @user = User.find(book_history.user_id) %>
+      <% #History of a user %>
+      <%  if @data.split("&")[0].split("=")[1].nil? %>
+        <% if book_history.user_id.to_s == @data.split("&")[1].split("=")[1]%>
          <tr>
         <td><%= @book.title %></td>
         <td><%= book_history.chk_out_dt.strftime("%b/%d/%Y") %></td>
@@ -25,9 +36,24 @@
            <%else%>
                <td><%=book_history.chk_in_date%></td>
                <%end%>
-      <%end%>
-      </tr>
-    <% end %>
+          <%end%>
+    <% end %> <%#End of history of a book%>
+      <% #History of a book %>
+      <%  if @data.split("&")[1].split("=")[1].nil? %>
+          <% if book_history.book_id.to_s == @data.split("&")[0].split("=")[1]%>
+              <tr>
+                <td><%= @book.title %></td>
+                <td><%= book_history.chk_out_dt.strftime("%b/%d/%Y") %></td>
+                <%if !book_history.chk_in_date.nil?%>
+                    <td><%=book_history.chk_in_date.strftime("%b/%d/%Y")%></td>
+                <%else%>
+                    <td><%=book_history.chk_in_date%></td>
+                <%end%>
+                <td><%= @user.name %>(&nbsp<%=@user.email%>&nbsp)</td>
+          <%end%>
+      <% end %>
+      <%#End of history of a book%>
+  <% end %>
   </tbody>
 </table>
 <br>
