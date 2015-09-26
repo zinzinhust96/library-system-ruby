@@ -9,12 +9,15 @@
       <th>Description</th>
       <th>Author</th>
       <th>Isbn</th>
+      <th>Borrower Name</th>
+      <th>Borrower Contact Number</th>
       <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <% @books.each do |book| %>
-
+    <%@user_name = User.find(book.user_id).name%>
+      <%@user_phone = User.find(book.user_id).phone%>
   <tbody>
 
     <tr>
@@ -22,6 +25,10 @@
       <td><%= book.description %></td>
       <td><%= book.author %></td>
       <td><%= book.isbn %></td>
+      <%if @current_user.is_admin? %>
+      <td><%= @user_name %></td>
+      <td><%= @user_phone %></td>
+      <%end%>
       <% if book.is_borrowed %>
       <td><span class="label label-danger">Checked out</span></td>
       <% else %>
