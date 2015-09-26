@@ -65,19 +65,31 @@ class BooksController < ApplicationController
   def request_book
     @book=Book.find(params[:id])
     @book.is_requested=true
-    @book.user_id=session[:user_id]
+    @book.requested_by=session[:user_id]
     if @book.save!
      render :show, status: :ok, location: @book
-   else
+    else
     render :show
     render json: @book.errors, status: :unprocessable_entity
+    end
   end
-end
+
+  def cancel_request
+    @book=Book.find(params[:id])
+    @book.is_requested=false
+    @book.requested_by=nil
+    if @book.save!
+     render :show, status: :ok, location: @book
+    else
+    render :show
+    render json: @book.errors, status: :unprocessable_entity
+    end
+  end
 
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.all.paginate(:per_page=>10, :page=>params[:page])
   end
 
   # GET /books/1

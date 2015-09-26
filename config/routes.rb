@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'book_histories/:user_id/index' => 'book_histories#index', :as =>:check_user_history
    get 'books/:id/request' => 'books#request_book', :as => :request_book
    get 'books/:id/return' => 'books#return', :as => :return_book
+   get 'books/:id/cancel_request' => 'books#cancel_request', :as => :cancel_request_book
   # post 'books/borrow[:book_id]'   =>  'searches#borrow'
   resources :searches
   resources :books
