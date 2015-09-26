@@ -9,12 +9,6 @@ class BooksController < ApplicationController
     @book.is_borrowed=true
     @book.user_id = session[:user_id]
 
-    #added by vicky
-    #@book_history = BookHistory.new
-    #@book_history.book_id = params[:id]
-    #@book_history.user_id = session[:user_id]
-    #@book_history.chk_out_dt=
-
     if @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
@@ -43,8 +37,15 @@ class BooksController < ApplicationController
     if @book.is_borrowed && (@book.user_id != @current_user.id)
       invalid_return = true
     end
+    send_mail = false
+    if @book.is_requested
+      user = User.find(@book.requested_by)
+      send_mail = true
+    end
     @book.is_borrowed=false
-    @book.user_id = nil 
+    @book.user_id = nil
+    @book.requested_by = nil
+    @book.is_requested = false
     if !invalid_return && @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
@@ -53,7 +54,14 @@ class BooksController < ApplicationController
       render :show     #render json: @book.errors, status: :unprocessable_entity
     end
     #create check_out_history of book #vicky #add check in date
+    if send_mail
+      send_email_to_requester(user, @book.title)
+    end
     complete_book_history params[:id],session[:user_id],Time.now.getlocal
+  end
+
+  def send_email_to_requester(user, book_name)
+    Notifier.send_notification(user.email, user.name, book_name).deliver_now!
   end
 
   def complete_book_history(book_id, user_id, chk_in_dt)
