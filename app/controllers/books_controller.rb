@@ -130,9 +130,6 @@ end
     end
   end
 
-
-
-
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
@@ -150,16 +147,14 @@ end
   end
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    private
+private
     # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params.require(:book).permit(:title, :description, :author, :isbn, :is_borrowed, :is_deleted)
-    end
-
-
-
+  def book_params
+    params.require(:book).permit(:title, :description, :author, :isbn, :is_borrowed, :is_deleted)
+  end
+  
   end
