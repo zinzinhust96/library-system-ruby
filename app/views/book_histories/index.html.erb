@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+    <p id="notice"><%= notice %></p>
 <% if((@user_id.to_s == @current_user.id.to_s) || @current_user.is_admin) %>
 
     <%if !@data.split("&")[1].split("=")[1].nil?       #user_id is not nil%>
@@ -65,9 +65,5 @@
   <p class="text-danger">You are not authorized to view this page!</p>
 </blockquote>
 <% end %>
-
-<%if !@data.split("&")[1].split("=")[1].nil?       #user_id is not nil%>
-    <%= link_to 'Back', users_path, :class => "btn btn-warning", :style => "color: #ffffff" %>
-<%else%>
-    <%= link_to 'Back', books_path, :class => "btn btn-warning", :style => "color: #ffffff" %>
-<%end%>
+</br>
+<%= link_to 'Back', :back, :class => "btn btn-warning", :style => "color: #ffffff" %>
