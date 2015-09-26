@@ -17,7 +17,7 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "should create book" do
-    assert_difference('Book.count') do
+      assert_difference('Book.count') do
       post :create, book: { author: @book.author, description: @book.description, is_borrowed: @book.is_borrowed, is_deleted: @book.is_deleted, isbn: @book.isbn, title: @book.title }
     end
 
