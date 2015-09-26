@@ -19,8 +19,12 @@
       <% if book_history.user_id == @current_user.id %>
          <tr>
         <td><%= @book.title %></td>
-        <td><%= book_history.chk_out_dt %></td>
-        <td><%= book_history.chk_in_date %></td>
+        <td><%= book_history.chk_out_dt.strftime("%b/%d/%Y") %></td>
+           <%if !book_history.chk_in_date.nil?%>
+        <td><%=book_history.chk_in_date.strftime("%b/%d/%Y")%></td>
+           <%else%>
+               <td><%=book_history.chk_in_date%></td>
+               <%end%>
         <td><%= book_history.user_id %></td>
         <td><%= link_to 'Show', book_history %></td>
         <td><%= link_to 'Edit', edit_book_history_path(book_history) %></td>
