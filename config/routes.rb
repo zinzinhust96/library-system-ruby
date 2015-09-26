@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
    get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
+  get 'book_histories/:user_id/index' => 'book_histories#index', :as =>:check_user_history
    get 'books/:id/request' => 'books#request_book', :as => :request_book
    get 'books/:id/return' => 'books#return', :as => :return_book
   # post 'books/borrow[:book_id]'   =>  'searches#borrow'

@@ -16,7 +16,7 @@
   <tbody>
     <% @book_histories.each do |book_history| %>
       <% @book = Book.find(book_history.book_id) %>
-      <% if book_history.user_id == @current_user.id %>
+      <% if book_history.user_id.to_s == @user_id %>
          <tr>
         <td><%= @book.title %></td>
         <td><%= book_history.chk_out_dt.strftime("%b/%d/%Y") %></td>
@@ -26,6 +26,8 @@
                <td><%=book_history.chk_in_date%></td>
                <%end%>
         <td><%= book_history.user_id %></td>
+           <td><%= @user_id.class %></td> <%#remove%>
+           <td><%= book_history.user_id == @user_id %></td> <%#remove%>
         <td><%= link_to 'Show', book_history %></td>
         <td><%= link_to 'Edit', edit_book_history_path(book_history) %></td>
         <td><%= link_to 'Destroy', book_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>

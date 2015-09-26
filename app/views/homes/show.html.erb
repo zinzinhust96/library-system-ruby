@@ -15,5 +15,5 @@
 </div>
 
 <div class="btn-group float_btn" role="group">
-	<%= link_to "My checkout history", book_histories_path, class: "btn btn-xlg btn-warning", style: "color: #fff"%>
+	<%= link_to "My checkout history", book_histories_path(:user_id => @current_user.id), class: "btn btn-xlg btn-warning", style: "color: #fff"%>
 </div>
