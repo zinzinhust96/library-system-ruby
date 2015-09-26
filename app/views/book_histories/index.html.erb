@@ -24,12 +24,6 @@
            <%else%>
                <td><%=book_history.chk_in_date%></td>
                <%end%>
-        <td><%= book_history.user_id %></td>
-           <td><%= @user_id.class %></td> <%#remove%>
-           <td><%= book_history.user_id == @user_id %></td> <%#remove%>
-        <td><%= link_to 'Show', book_history %></td>
-        <td><%= link_to 'Edit', edit_book_history_path(book_history) %></td>
-        <td><%= link_to 'Destroy', book_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <%end%>
       </tr>
     <% end %>
