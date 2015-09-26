@@ -8,6 +8,13 @@ class BooksController < ApplicationController
     logger.debug "Book returned by search #{@book.id}"
     @book.is_borrowed=true
     @book.user_id = session[:user_id]
+
+    #added by vicky
+    #@book_history = BookHistory.new
+    #@book_history.book_id = params[:id]
+    #@book_history.user_id = session[:user_id]
+    #@book_history.chk_out_dt=
+
     if @book.save!
       # redirect_to @book, notice: 'Book was successfully borrowed.'
       render :show, status: :ok, location: @book
@@ -15,6 +22,16 @@ class BooksController < ApplicationController
       render :show
       # render json: @book.errors, status: :unprocessable_entity
     end
+    #create check_out_history of book #vicky
+    create_book_history params[:id], session[:user_id],Time.now.getlocal
+  end
+
+  def create_book_history(book_id, user_id, chk_out_dt)
+    @book_history = BookHistory.new
+    @book_history.book_id = book_id
+    @book_history.user_id = user_id
+    @book_history.chk_out_dt = chk_out_dt
+    @book_history.save!
   end
 
   def return
@@ -35,6 +52,14 @@ class BooksController < ApplicationController
       flash.now[:danger] = "Invalid Action!"
       render :show     #render json: @book.errors, status: :unprocessable_entity
     end
+    #create check_out_history of book #vicky #add check in date
+    complete_book_history params[:id],session[:user_id],Time.now.getlocal
+  end
+
+  def complete_book_history(book_id, user_id, chk_in_dt)
+    @book_history = BookHistory.find_by(:book_id => book_id, :user_id => user_id, :chk_in_date => nil)
+    @book_history.chk_in_date = chk_in_dt
+    @book_history.save!
   end
 
   def request_book
