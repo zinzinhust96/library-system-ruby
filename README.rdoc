@@ -35,7 +35,7 @@ Below are the steps you can execute "TO MANAGE PROFILES" when you are logged in 
 	
 * Delete User Profile
 	- Go to "Manage Users" tab
-	- Click "Discard" for the user who's profile you want to delete
+	- Click "Destroy" for the user who's profile you want to delete
 
 * View Checkout History of a User
        - Go to Manage Users
