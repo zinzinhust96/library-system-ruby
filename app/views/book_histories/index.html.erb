@@ -2,7 +2,7 @@
 
 <h1>Listing Book Histories</h1>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>Book</th>
@@ -15,8 +15,9 @@
 
   <tbody>
     <% @book_histories.each do |book_history| %>
-      <tr>
-        <td><%= book_history.book_id %></td>
+      <% @book = Book.find(book_history.book_id) %>
+         <tr>
+        <td><%= @book.title %></td>
         <td><%= book_history.chk_out_dt %></td>
         <td><%= book_history.chk_in_date %></td>
         <td><%= book_history.user_id %></td>
