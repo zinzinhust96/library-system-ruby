@@ -53,11 +53,15 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    user_books = Book.find_by(user_id: @user.id)
+      if user_books == nil
+        @user.destroy
+        flash[:notice] = "User was successfully deleted."
+        redirect_to users_url
+      else
+        flash[:danger] = "User has books checked out! Can't delete"
+        redirect_to users_url
+      end
   end
 
   private
