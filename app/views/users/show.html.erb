@@ -20,6 +20,8 @@
   <strong>Phone:</strong>
   <%= @user.phone %>
 </p>
+<br/><br>
+<%= link_to 'Back', users_path, :class => "btn btn-warning", :style => "color: #ffffff" %>
 <%else%>
 <blockquote>
   <p class="text-danger">You are not authorized to view this page!</p>

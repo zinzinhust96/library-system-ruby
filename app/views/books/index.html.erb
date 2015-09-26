@@ -39,7 +39,7 @@
       <td><%= link_to 'Request', request_book_path(:id => book.id), :class => "btn btn-warning", :style => "color: #ffffff"%></td>
       <%end%>
       <%else%>
-      <td><%=link_to 'Borrow', borrow_book_path, :class => "btn btn-success", :style => "color: #ffffff"%></td>
+      <td><%=link_to 'Borrow', borrow_book_path(:id => book.id), :class => "btn btn-success", :style => "color: #ffffff"%></td>
       <%end%>
       <%end%>
     </tr>
