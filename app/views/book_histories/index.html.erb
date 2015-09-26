@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<% if((@user_id.to_s == @current_user.id.to_s) || @current_user.is_admin) %>
 
 <h1>Your checkout history</h1>
 
@@ -30,3 +31,8 @@
   </tbody>
 </table>
 <br>
+<%else%>
+<blockquote>
+  <p class="text-danger">You are not authorized to view this page!</p>
+</blockquote>
+<% end %>
