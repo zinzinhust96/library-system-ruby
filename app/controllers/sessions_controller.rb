@@ -5,8 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-
-
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
@@ -31,9 +29,9 @@ class SessionsController < ApplicationController
     @user = User.new(user_params)
     begin
       if @user.save!
-        logger.debug "user saved"
-        flash.now['User was successfully created.']
-        render 'new'
+        session[:user_id] = @user.id
+        logged_in?
+        redirect_to home_path
       end
     rescue => error
       logger.debug "ERROR - gaurav"
