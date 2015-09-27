@@ -97,7 +97,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all.paginate(:per_page=>10, :page=>params[:page])
+    @books = Book.paginate_by_sql("select * from books where is_deleted = 'f'", :page => params[:page], :per_page => 10)
   end
 
   # GET /books/1
@@ -122,6 +122,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     Rails.logger = Logger.new(STDOUT)
     logger.debug "params passed is #{book_params}"
+    @book.is_deleted = false
 
     respond_to do |format|
       if @book.save
@@ -156,7 +157,8 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     respond_to do |format|
       if @book.present?
-        @book.destroy
+        @book.is_deleted = true
+        @book.save
         format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
         format.json { head :no_content }
       else
