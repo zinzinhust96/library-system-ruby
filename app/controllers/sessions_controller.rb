@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
   skip_before_filter :verify_login
-
   def new
   end
 
@@ -29,7 +28,6 @@ class SessionsController < ApplicationController
   end
 
   def new_user
-    logger.debug "!!!!Vicky params passed is #{user_params}"
     @user = User.new(user_params)
     begin
       if @user.save!
