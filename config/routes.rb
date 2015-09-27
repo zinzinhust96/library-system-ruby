@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   resources :book_histories
   get 'homes/new'
   get 'homes/show' => 'homes#show', as: :home
-
+  get 'sessions/signup' => 'sessions#signup', :as => :signup
+  post 'sessions/new_user' => 'sessions#new_user'
   root :to => 'sessions#new'
-  get    'login'   => 'sessions#new'
+  get    'login'   => 'sessions#new', :as => :loginpage
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
