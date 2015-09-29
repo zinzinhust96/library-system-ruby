@@ -11,10 +11,15 @@ password: admin123
                                         When book is returned by user, email will be sent to the user who has requested notification
                                         Notification can be cancelled any time
                                         Right now, only one user can request notification for a book at a time
+
+
 2. EDIT AND VIEW PROFILE - can be done by clicking on small arrow on right hand side upper corner of page.
+
+
 3. CHECKOUT HISTORY - This is available for individual users on home page ("View Checkout History") or for all users for admin (Go to Manage USers and then View Checkout History) and also for a book (Go to All books/ search book), then click on Checkout History for a particular Book.
 
 4. User who has books checked out is not allowed to be deleted by admin.
+
 5. Book who is checked out by a user is not allowed to be deleted by admin.
 
 For Editing other users' profile, Admin can go to Manage Users and then can do the required functions.
