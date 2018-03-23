@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  skip_before_filter :verify_login
+  skip_before_action :verify_login
   def new
   end
 

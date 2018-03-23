@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   include SessionsHelper
-  before_filter :verify_login
+  before_action :verify_login
 
   def verify_login
     if !logged_in?
